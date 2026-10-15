@@ -1,3 +1,4 @@
+#première pop
 n_pop_1 <- 10000
 
 fq_0_A <- 0.7
