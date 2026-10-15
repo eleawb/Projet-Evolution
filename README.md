@@ -17,3 +17,4 @@ Car Rouge+Bleu => Violet
 *Représentation sous forme de tableau :*
 + Colonne : nb de générations
 + Ligne : fréquence de violets, fréquence de rouges, fréquence de bleus
+<img width="250" height="333" alt="image" src="https://github.com/user-attachments/assets/72a3b98e-fb7f-4bc2-a375-ea02815638ed" />
