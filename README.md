@@ -1,4 +1,3 @@
-
 *4 types de forces évolutives :*
 - Migration
 - Mutation
@@ -23,3 +22,10 @@ Car Rouge+Bleu => Violet
 *Représentation sous forme de tableau :*
 + Colonne : nb de générations
 + Ligne : fréquence de violets, fréquence de rouges, fréquence de bleus
+
+
+## Librarie nécessaire :
+```r
+install.packages("crayon")
+library(crayon)
+```

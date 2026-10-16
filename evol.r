@@ -1,3 +1,6 @@
+#install.packages("crayon")
+library(crayon)
+
 #première pop
 n_pop_1 <- 10000
 
@@ -28,6 +31,33 @@ fun_representation_pop <- function(fq_gen,n_pop){
   n_pop_courant <- n_pop * fq_gen
   return (n_pop_courant)
 }
+
+
+fun_affichage_pop <- function(pop,n_pop,num_pop,n_gen){
+  cat("================ Population ",num_pop,": Génération ",n_gen," ==================\n",sep="")
+  
+  cat("‖ Il y a ",
+      sprintf("%6.2f",pop[1]*100),"% de ",italic("A"),
+      " et ",
+      sprintf("%6.2f",pop[2]*100),"% de ",italic("a"),
+      "                         ‖\n",sep="")
+  
+  n_pop_courant <- fun_representation_pop(fun_freq_geno(pop),n_pop)
+  
+  cat("‖ Soit ",
+      red(sprintf("%5.0f",round(n_pop_courant[1])))," rouges, ",
+      magenta(sprintf("%5.0f",round(n_pop_courant[2])))," violets et ",
+      blue(sprintf("%5.0f",round(n_pop_courant[3])))," bleus.            ‖",
+      "\n",
+      sep="")
+  
+  cat("===============================================================\n")
+}
+
+
+# Grande fonction qui permet la création de la génération suivante à partir de vect_pop
+# Applique la force de séléction naturelle 
+# Return la gén suivante
 fun_reproduction <- function(vect_pop,vect_fitness,n_pop) {
   # Fréquence génotypique sous panmixie
   fq_gen <- fun_freq_geno(vect_pop)
@@ -47,9 +77,16 @@ fun_reproduction <- function(vect_pop,vect_fitness,n_pop) {
   print(sum(nv_gen))
   return(nv_gen)
 }
-pop2 <- fun_reproduction(pop1,vect_fitness,n_pop_1)
-print(pop2)
 
-#pop3 <- fun_reproduction(pop2,vect_fitness,n_pop_1)
-#print(pop3)
+
+
+fun_affichage_pop(pop1,n_pop_1,1,1)
+tmp_pop <- pop1
+for(x in 1:10){
+  old_pop <- tmp_pop
+  tmp_pop <- fun_reproduction(old_pop,vect_fitness,n_pop_1)
+  
+  fun_affichage_pop(tmp_pop, n_pop_1, 1,x+1)
+}
+
 
