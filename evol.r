@@ -72,7 +72,6 @@ fun_reproduction <- function(vect_pop,vect_fitness,n_pop) {
   # Ici on recalcule le nb de A et de a qu'on normalise par 2 fois la nouvelle taille de la population
   nv_gen <- c(2*selection[1]+selection[2],2*selection[3]+selection[2]) / (2*sum(selection))
   
-  print(sum(nv_gen))
   return(nv_gen)
 }
 
