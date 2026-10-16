@@ -2,17 +2,17 @@
 library(crayon)
 
 # effectif pop1
-n_pop_1 <- 10000
+n_pop_1 <- 100000
 
 # Fréquences alléliques de la pop1
-fq_1_A <- 0.5
-fq_1_a <- 0.5
+fq_1_A <- 0.1
+fq_1_a <- 0.9
 pop1 <- c(fq_1_A,fq_1_a)
 
 # Fitness des couleurs de peau
-fitness_Rouge <- 1
-fitness_Violet <- 0.7
-fitness_Bleu <- 0.6
+fitness_Rouge <- 0.99
+fitness_Violet <- 0.9
+fitness_Bleu <- 0.84
 vect_fitness <-c(fitness_Rouge,fitness_Violet,fitness_Bleu)
 
 prob_pop1_into_pop2 <- 0.1
@@ -45,10 +45,10 @@ fun_affichage_pop <- function(pop,n_pop,num_pop,n_gen){
   
   n_pop_courant <- fun_representation_pop(fun_freq_geno(pop),n_pop)
   
-  cat("‖ Soit ",
+  cat("‖ Soient ",
       red(sprintf("%5.0f",round(n_pop_courant[1])))," rouges, ",
       magenta(sprintf("%5.0f",round(n_pop_courant[2])))," violets et ",
-      blue(sprintf("%5.0f",round(n_pop_courant[3])))," bleus.            ‖",
+      blue(sprintf("%5.0f",round(n_pop_courant[3])))," bleus.          ‖",
       "\n",
       sep="")
   
@@ -75,14 +75,40 @@ fun_reproduction <- function(vect_pop,vect_fitness,n_pop) {
   return(nv_gen)
 }
 
+
+# On affiche la première pop
 fun_affichage_pop(pop1,n_pop_1,1,1)
 tmp_pop <- pop1
 
-for(x in 1:10){
+# On crée un DataFrame pour l'analyse donnée avec A et a les fréquences de A et a en colonne 
+# et pour chaque ligne une génération (rbind)
+
+data_evo <- data.frame(
+  A = tmp_pop[1],
+  a = tmp_pop[2]
+)
+
+for(x in 1:50){
   old_pop <- tmp_pop
   tmp_pop <- fun_reproduction(old_pop,vect_fitness,n_pop_1)
   
+  data_evo <- rbind(data_evo,tmp_pop)
   fun_affichage_pop(tmp_pop, n_pop_1, 1,x+1)
 }
 
+# AFFICHAGE GRAPHIQUE
+plot(data_evo$A,
+     type = "l",
+     col="red",
+     ylim =c(0,1),
+     main= "Évolution des fréquences alléliques\n en fonction des générations",
+     xlab="Générations",
+     ylab="Fréquences")
+grid()
+lines(data_evo$a,
+      col="blue")
 
+legend("top",
+       legend=c("F(A)", "F(a)"),
+       col=c("red", "blue"),
+       lty=1)
