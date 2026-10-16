@@ -21,14 +21,20 @@ fun_freq_geno <- function(vect_pop){
   return (fq_gen)
 }
 
+# Function qui prend un vecteur de fréquence génotypique et n la taille de la pop
+# return un vecteur du nombre d'individu avec les phénotypes AA Aa aa (aka cb il y a de rouge violet et bleu)
+fun_representation_pop <- function(fq_gen,n_pop){
+  # int * vect
+  n_pop_courant <- n_pop * fq_gen
+  return (n_pop_courant)
+}
 fun_reproduction <- function(vect_pop,vect_fitness,n_pop) {
   # Fréquence génotypique sous panmixie
   fq_gen <- fun_freq_geno(vect_pop)
-  
-  # Cb il y a de rouge, violet, bleu 
-  # int * vect
-  n_pop_courant <- n_pop * fq_gen
-  
+  #print(fq_gen)
+ 
+  n_pop_courant <- fun_representation_pop(fq_gen,n_pop)
+  #print(n_pop_courant)
   # On a deux vect de meme taille aka on peut multiplier
   selection <- n_pop_courant * vect_fitness
   #print(selection)
