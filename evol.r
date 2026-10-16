@@ -14,9 +14,16 @@ prob_pop2_into_pop1 <- 0.1
 pop1 <- c(fq_0_A,fq_0_a)
 vect_fitness <-c(fitness_Rouge,fitness_Violet,fitness_Bleu)
 
+# Function qui prend un vecteur de fréquence des alléles dans une population
+# return un vecteur de fréquence génotypique sous panmixie
+fun_freq_geno <- function(vect_pop){
+  fq_gen <- c(vect_pop[1]**2,2*vect_pop[1]*vect_pop[2],vect_pop[2]**2)
+  return (fq_gen)
+}
+
 fun_reproduction <- function(vect_pop,vect_fitness,n_pop) {
   # Fréquence génotypique sous panmixie
-  fq_gen <- c(vect_pop[1]**2,2*vect_pop[1]*vect_pop[2],vect_pop[2]**2)
+  fq_gen <- fun_freq_geno(vect_pop)
   
   # Cb il y a de rouge, violet, bleu 
   # int * vect
