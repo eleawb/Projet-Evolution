@@ -1,21 +1,22 @@
 #install.packages("crayon")
 library(crayon)
 
-#première pop
+# effectif pop1
 n_pop_1 <- 10000
 
-fq_0_A <- 0.7
-fq_0_a <- 0.3
+# Fréquences alléliques de la pop1
+fq_1_A <- 0.5
+fq_1_a <- 0.5
+pop1 <- c(fq_1_A,fq_1_a)
 
+# Fitness des couleurs de peau
 fitness_Rouge <- 1
 fitness_Violet <- 0.7
 fitness_Bleu <- 0.6
+vect_fitness <-c(fitness_Rouge,fitness_Violet,fitness_Bleu)
 
 prob_pop1_into_pop2 <- 0.1
 prob_pop2_into_pop1 <- 0.1 
-
-pop1 <- c(fq_0_A,fq_0_a)
-vect_fitness <-c(fitness_Rouge,fitness_Violet,fitness_Bleu)
 
 # Function qui prend un vecteur de fréquence des alléles dans une population
 # return un vecteur de fréquence génotypique sous panmixie
@@ -40,7 +41,7 @@ fun_affichage_pop <- function(pop,n_pop,num_pop,n_gen){
       sprintf("%6.2f",pop[1]*100),"% de ",italic("A"),
       " et ",
       sprintf("%6.2f",pop[2]*100),"% de ",italic("a"),
-      "                         ‖\n",sep="")
+      ".                        ‖\n",sep="")
   
   n_pop_courant <- fun_representation_pop(fun_freq_geno(pop),n_pop)
   
@@ -61,14 +62,11 @@ fun_affichage_pop <- function(pop,n_pop,num_pop,n_gen){
 fun_reproduction <- function(vect_pop,vect_fitness,n_pop) {
   # Fréquence génotypique sous panmixie
   fq_gen <- fun_freq_geno(vect_pop)
-  #print(fq_gen)
  
   n_pop_courant <- fun_representation_pop(fq_gen,n_pop)
-  #print(n_pop_courant)
+  
   # On a deux vect de meme taille aka on peut multiplier
   selection <- n_pop_courant * vect_fitness
-  #print(selection)
-  #print(sum(selection))
   
   # Nouvelle fréq allélique 
   # Ici on recalcule le nb de A et de a qu'on normalise par 2 fois la nouvelle taille de la population
@@ -78,10 +76,9 @@ fun_reproduction <- function(vect_pop,vect_fitness,n_pop) {
   return(nv_gen)
 }
 
-
-
 fun_affichage_pop(pop1,n_pop_1,1,1)
 tmp_pop <- pop1
+
 for(x in 1:10){
   old_pop <- tmp_pop
   tmp_pop <- fun_reproduction(old_pop,vect_fitness,n_pop_1)
