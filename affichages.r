@@ -1,5 +1,5 @@
 # Function d'affichage dans la console
-fun_affichage_pop <- function(pop,n_pop,num_pop,n_gen){
+affichage_cons_1 <- function(pop,n_pop,num_pop,n_gen){
   cat("================ Population ",num_pop,": Génération ",n_gen," ==================\n",sep="")
   
   cat("‖ Il y a ",
@@ -22,14 +22,14 @@ fun_affichage_pop <- function(pop,n_pop,num_pop,n_gen){
 
 # Function qui prend une matrice la transforme en dataframe de colonne A et a et qui
 # plot l'Évolution des fréquences alléliques en fonction des générations
-affichage1 <- function(df){
+affichage_plot_1 <- function(df,nb_pop){
   data_evo <- as.data.frame(df)
   # AFFICHAGE GRAPHIQUE
   plot(data_evo$A,
        type = "l",
        col="red",
        ylim =c(0,1),
-       main= "Évolution des fréquences alléliques\n en fonction des générations",
+       main= paste("Évolution des fréquences alléliques\n en fonction des générations\n pour la population",nb_pop),
        xlab="Générations",
        ylab="Fréquences")
   grid()
