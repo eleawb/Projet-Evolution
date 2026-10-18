@@ -1,0 +1,38 @@
+# Function qui prend un vecteur de fréquence des alléles dans une population
+# return un vecteur de fréquence génotypique sous panmixie
+fun_freq_geno <- function(vect_pop){
+  fq_gen <- c(vect_pop[1]**2,2*vect_pop[1]*vect_pop[2],vect_pop[2]**2)
+  return (fq_gen)
+}
+
+
+
+# Function qui prend un vecteur de fréquence génotypique et n la taille de la pop
+# return un vecteur du nombre d'individu avec les phénotypes AA Aa aa (aka cb il y a de rouge violet et bleu)
+fun_representation_pop <- function(fq_gen,n_pop){
+  # int * vect
+  n_pop_courant <- n_pop * fq_gen
+  return (n_pop_courant)
+}
+
+
+
+
+# Grande fonction qui permet la création de la génération suivante à partir de vect_pop
+# Applique la force de séléction naturelle 
+# Return la gén suivante
+fun_reproduction <- function(vect_pop,vect_fitness,n_pop) {
+  # Fréquence génotypique sous panmixie
+  fq_gen <- fun_freq_geno(vect_pop)
+  
+  n_pop_courant <- fun_representation_pop(fq_gen,n_pop)
+  
+  # On a deux vect de meme taille aka on peut multiplier
+  selection <- n_pop_courant * vect_fitness
+  
+  # Nouvelle fréq allélique 
+  # Ici on recalcule le nb de A et de a qu'on normalise par 2 fois la nouvelle taille de la population
+  nv_gen <- c(2*selection[1]+selection[2],2*selection[3]+selection[2]) / (2*sum(selection))
+  
+  return(nv_gen)
+}
