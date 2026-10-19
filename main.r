@@ -43,15 +43,21 @@ main <- function(nb_gen_sim){
 
     # On applique la Migration
     res_migr <- migration(tmp_pop1,n_pop_1,tmp_pop2,n_pop_2,prob_migr)
+    
+    tmp_pop1 <- res_migr$pop1
+    tmp_pop2 <- res_migr$pop2
+    n_pop_1 <- res_migr$n_pop1
+    n_pop_2 <- res_migr$n_pop2
+    #cat("\nmain :",res_migr,"\n")
     #tmp_pop1 <- res_migr[]
-    # On stock les résultats dans les matrices respectives
+    #On stock les résultats dans les matrices respectives
     data_evo_1[x+1,] <- tmp_pop1
     data_evo_2[x+1,] <- tmp_pop2
     
     # Et on affiche dans la console
     affichage_cons_1(tmp_pop1, n_pop_1, 1,x+1)
     affichage_cons_1(tmp_pop2, n_pop_2, 2,x+1)
-    cat("\n")
+    #cat("\n")
     
   }
   # On affiche les graphiques respectifs
@@ -59,6 +65,6 @@ main <- function(nb_gen_sim){
   affichage_plot_1(data_evo_2,2)
 }
 
-main(1)
+main(100)
 
 
