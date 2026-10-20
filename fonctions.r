@@ -31,7 +31,7 @@ fun_reel_pop <- function(fq_gen,n_pop){
 # Grande fonction qui permet la création de la génération suivante à partir de vect_pop
 # Applique la force de séléction naturelle 
 # Return la gén suivante
-fun_reproduction <- function(vect_pop,vect_fitness,n_pop) {
+reproduction <- function(vect_pop,vect_fitness,n_pop) {
   # Fréquence génotypique sous panmixie
   fq_gen <- fun_freq_geno(vect_pop)
   
@@ -50,7 +50,7 @@ fun_reproduction <- function(vect_pop,vect_fitness,n_pop) {
 # Fonction qui gére la force évolution de la migration
 # Prend deux populations en entrée
 # return 
-migration <-function(pop1,n_pop1,pop2,n_pop2,prob_migra){
+migration <-function(pop1,n_pop1,pop2,n_pop2,prob_migra_1_vers_2, prob_migra_2_vers_1){
   
   # On génére un vecteur de type "AA" "AA" .. "Aa".. "aa" qui represente la population
   # et on tire aléatoirement des gens de ce vecteur en fonction de la proba de migration
@@ -58,13 +58,13 @@ migration <-function(pop1,n_pop1,pop2,n_pop2,prob_migra){
   # MIGRATION POP1 -> POP2
   migrants_from_pop1 <- sample(
     fun_reel_pop( pop1,n_pop1),  
-    n_pop1 * prob_migra) 
+    n_pop1 * prob_migra_1_vers_2) 
   nb_migrants1 <- length(migrants_from_pop1)
   
   # MIGRATION POP2 -> POP1
   migrants_from_pop2 <- sample(
     fun_reel_pop( pop2,n_pop2),  
-    n_pop2 * prob_migra) 
+    n_pop2 * prob_migra_2_vers_1) 
   nb_migrants2 <- length(migrants_from_pop2)
   
   # On compte combien d'allèles on a pris

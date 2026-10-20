@@ -1,6 +1,6 @@
 # Function d'affichage dans la console
 affichage_cons_1 <- function(pop,n_pop,num_pop,n_gen){
-  cat("================ Population ",num_pop,": Génération ",n_gen," ==================\n",sep="")
+  cat(sprintf( "=============== Population %d : Génération %4d ================\n",num_pop,n_gen),sep="")
   
   cat("‖ Il y a ",
       sprintf("%6.2f",pop[1]*100),"% de ",italic("A"),
