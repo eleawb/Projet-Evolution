@@ -5,6 +5,9 @@ graphics.off()
 
 #install.packages("crayon")
 library(crayon)
+library(ggplot2)
+library(tidyr)
+
 
 source("config.r")
 source("fonctions.r")
@@ -82,6 +85,7 @@ main <- function(nb_gen_sim,b_selection,b_migration,b_mutation,b_derive){
   # On affiche les graphiques respectifs
   affichage_plot_1(data_evo_1,1)
   affichage_plot_1(data_evo_2,2)
+  affichage_plot_2(data_evo_1, data_evo_2,n_pop_1, n_pop_2)
   
   return(
     list(
