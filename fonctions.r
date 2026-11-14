@@ -127,5 +127,17 @@ mutation <- function(pop,n_pop) {
 }
 
 derive <- function(pop,n_pop){
+  # On tire au hasard des gens de nos populations
+  tirage <- sample(
+    c("A", "a"),  # Les deux choix possibles
+    size = 2 * n_pop, # NB alleles
+    replace = TRUE, # remise possible 
+    prob = pop # vecteur pop genre 0.7 0.3 qui vient comme ponderer les valeurs
+  )
+  # On compte le nombre de A et de a
+  nb_A <- sum(tirage=="A")
+  nb_a <- sum(tirage=="a")
   
+  pop <- (1/(2*n_pop))*c(nb_A,nb_a)
+  return(pop)
 }
