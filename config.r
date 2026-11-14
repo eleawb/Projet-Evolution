@@ -11,8 +11,8 @@ prob_muta_a_vers_A <- 0.005
 n_pop_1 <- 1000
 
 # Fréquences alléliques de la pop1
-fq_1_A <- 0.5
-fq_1_a <- 0.5
+fq_1_A <- 0.4
+fq_1_a <- 0.6
 pop1 <- c(fq_1_A,fq_1_a)
 
 # Fitness des couleurs de peau de la pop1
