@@ -98,7 +98,7 @@ main <- function(nb_gen_sim,b_selection,b_migration,b_mutation,b_derive){
 }
 
 # N_gen selection migration mutation dérive
-resultats <-main(200,TRUE,TRUE,TRUE,TRUE)
+resultats <-main(100,TRUE,TRUE,TRUE,TRUE)
 
 pop1 <- resultats$tmp_pop1
 pop2 <- resultats$tmp_pop2
