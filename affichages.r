@@ -33,11 +33,10 @@ affichage_plot_1 <- function(df,nb_pop){
        xlab="Générations",
        ylab="Fréquences")
   grid()
-  lines(data_evo$a,
-        col="blue")
+  #lines(data_evo$a,col="blue")
   
   legend("top",
-         legend=c("F(A)", "F(a)"),
-         col=c("red", "blue"),
+         legend=c("F(A)"),#, "F(a)"),
+         col=c("red" ,"blue"),
          lty=1)
 }

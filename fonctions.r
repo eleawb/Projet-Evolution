@@ -18,6 +18,7 @@ fun_representation_pop <- function(fq_gen,n_pop){
   return (n_pop_courant)
 }
 
+# Function qui retourn un vecteur "AA".."Aa".."aa" représentatif de la population
 fun_reel_pop <- function(fq_gen,n_pop){
   return(
     rep(
@@ -93,13 +94,10 @@ migration <-function(pop1,n_pop1,pop2,n_pop2,prob_migra_1_vers_2, prob_migra_2_v
   # Apres il faut les rajouter dans pop2
   #cat("\nFreq pop2 avant qu'on retire les migrants : ",pop2)
   tmp_pop2 <- c(
-    (pop2[1]*2*n_pop2 + nb_A_1 - nb_A_2) / (2 * nb_pop_2_final),
-    (pop2[2]*2*n_pop2 + nb_a_1 - nb_a_2) / (2 * nb_pop_2_final)
+    (pop2[1]*2*n_pop2   +   nb_A_1 - nb_A_2)    /  (2 * nb_pop_2_final),
+    (pop2[2]*2*n_pop2   +   nb_a_1 - nb_a_2)    /  (2 * nb_pop_2_final)
   )
   #cat("\nFreq pop2 après qu'on ajoute les migrants : ",pop2,"\n")
-  
-  
-  # MIGRATION POP2 -> POP1
   
   # On fait un return un peu plus compliqué car on doit recuper plein d'élément
   return(list(
@@ -108,4 +106,26 @@ migration <-function(pop1,n_pop1,pop2,n_pop2,prob_migra_1_vers_2, prob_migra_2_v
     n_pop1 = nb_pop_1_final,
     n_pop2 = nb_pop_2_final
   ))
+}
+
+
+mutation <- function(pop,n_pop) {
+  # On calcule combien on a de A et a
+  n_A <- round(2 * n_pop * pop[1])
+  n_a <- round(2 * n_pop * pop[2])
+  
+  # On regarde combien ont muté selon une li bioniomale et nos paramètres de mutations dans config
+  n_mut_A_vers_a <- rbinom(1,n_A,prob_muta_A_vers_a)
+  n_mut_a_vers_A <- rbinom(1,n_a,prob_muta_a_vers_A)
+  
+  pop <- c(
+    (n_A-n_mut_A_vers_a+n_mut_a_vers_A) / (2 * n_pop),
+    (n_a-n_mut_a_vers_A+n_mut_A_vers_a) / (2 * n_pop)
+  )
+  
+  return (pop)
+}
+
+derive <- function(pop,n_pop){
+  
 }

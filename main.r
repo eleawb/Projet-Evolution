@@ -11,7 +11,7 @@ source("fonctions.r")
 source("affichages.r")
 
 # Function globale responsable de la simulation
-main <- function(nb_gen_sim,b_selection,b_migration){
+main <- function(nb_gen_sim,b_selection,b_migration,b_mutation,b_derive){
   # On affiche les premières générations des pop qui viennet de config.R
   affichage_cons_1(pop1,n_pop_1,1,1)
   tmp_pop1 <- pop1
@@ -61,6 +61,15 @@ main <- function(nb_gen_sim,b_selection,b_migration){
       n_pop_2 <- res_migr$n_pop2
     }
     
+    if(b_mutation){
+      tmp_pop1 <- mutation(tmp_pop1,n_pop_1)
+      tmp_pop2 <- mutation(tmp_pop2,n_pop_2)
+    }
+    
+    if(b_derive){
+      tmp_pop1 <- derive(tmp_pop1,n_pop_1)
+      tmp_pop2 <- derive(tmp_pop2,n_pop_2)
+    }
     #On stock les résultats dans les matrices respectives
     data_evo_1[x+1,] <- tmp_pop1
     data_evo_2[x+1,] <- tmp_pop2
@@ -83,11 +92,12 @@ main <- function(nb_gen_sim,b_selection,b_migration){
     )
   )
 }
-# N_gen selection migration
-resultats <-main(100,TRUE,TRUE)
+# N_gen selection migration mutation dérive
+resultats <-main(200,TRUE,TRUE,TRUE,FALSE)
 
 pop1 <- resultats$tmp_pop1
 pop2 <- resultats$tmp_pop2
+
 n_pop_1 <- resultats$n_pop_1
 n_pop_2 <- resultats$n_pop_2
 
